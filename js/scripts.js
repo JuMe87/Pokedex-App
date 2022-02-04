@@ -1,4 +1,6 @@
-pokemonList = [{
+// List of Pokemon, thier name, height, weight and type, some pokemon have more than one type
+
+let pokemonList = [{
     name: 'Pikachu',
     height: 0.4,
     weight: 6.0,
@@ -26,3 +28,6 @@ pokemonList = [{
     type: ['fairy', 'normal']
 } 
 ]
+
+console.log(pokemonList);
+
