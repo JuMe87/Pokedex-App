@@ -27,7 +27,13 @@ let pokemonList = [{
     weight: 5.5,
     type: ['fairy', 'normal']
 } 
-]
+];
 
 console.log(pokemonList);
+
+// Loop that goes through each Pokemon in an array and prints the details onto an index.html page
+for (let i = 0; i < pokemonList.length; i++){
+    console.log(pokemonList[i].name);
+    document.write(pokemonList.name + pokemonList.height);
+}
 
