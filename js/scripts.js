@@ -19,7 +19,7 @@ let pokemonList = [{
     height: 0.5,
     weight: 9.0,
     type: ['water']
-} 
+}, 
 
 {
     name: 'Jigglypuff',
