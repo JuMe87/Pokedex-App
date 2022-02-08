@@ -1,6 +1,6 @@
 Project description
 *A JavaScript app built with HTML, CSS, and JavaScript, which uses an
-external API.
+external API.It is a Pokedex app, displaying various Pokemons.
 
 How to get the project running
 
