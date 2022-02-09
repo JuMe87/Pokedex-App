@@ -34,6 +34,13 @@ console.log(pokemonList);
 // Loop that goes through each Pokemon in an array and prints the details onto an index.html page
 for (let i = 0; i < pokemonList.length; i++){
     console.log(pokemonList[i].name);
-    document.write(pokemonList.name + pokemonList.height);
+    document.write(pokemonList[i].name + pokemonList[i].height);
 }
 
+// Loop with a conditional that checks whether weight is above a certain value
+for (let i=0; i < pokemonList.length; i++){
+    if (pokemonList[i].weight >8.0){
+      console.log(pokemonList[i].name + pokemonList[i].weight + " Wow, that's big!");
+      document.write(pokemonList[i].name + pokemonList[i].weight + " Wow, that's big!");
+    }
+}
