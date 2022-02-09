@@ -8,10 +8,10 @@ let pokemonList = [{
 },
   
 {
-    name: 'Ditto',
-    height: 0.3,
-    weight: 4.0,
-    type: ['normal']
+    name: 'Charizard',
+    height: 1.7,
+    weight: 90.5,
+    type: ['fire', 'flying']
 },
   
 {
@@ -37,10 +37,10 @@ for (let i = 0; i < pokemonList.length; i++){
     document.write(pokemonList[i].name + pokemonList[i].height);
 }
 
-// Loop with a conditional that checks whether weight is above a certain value
+// Loop with a conditional that checks whether height is above a certain value
 for (let i=0; i < pokemonList.length; i++){
-    if (pokemonList[i].weight >8.0){
-      console.log(pokemonList[i].name + pokemonList[i].weight + " Wow, that's big!");
-      document.write(pokemonList[i].name + pokemonList[i].weight + " Wow, that's big!");
+    if (pokemonList[i].height >1.6){
+      console.log(pokemonList[i].name + pokemonList[i].height + " Wow, that's big!");
+      document.write(pokemonList[i].name + pokemonList[i].height + " Wow, that's big!");
     }
 }
