@@ -31,16 +31,14 @@ let pokemonList = [{
 
 console.log(pokemonList);
 
-// Loop that goes through each Pokemon in an array and prints the details onto an index.html page
-for (let i = 0; i < pokemonList.length; i++){
-    console.log(pokemonList[i].name);
-    document.write(pokemonList[i].name + pokemonList[i].height);
-}
-
 // Loop with a conditional that checks whether height is above a certain value
 for (let i=0; i < pokemonList.length; i++){
     if (pokemonList[i].height >1.6){
       console.log(pokemonList[i].name + pokemonList[i].height + " Wow, that's big!");
       document.write(pokemonList[i].name + pokemonList[i].height + " Wow, that's big!");
+    }else {
+        console.log(pokemonList[i].name + pokemonList[i].height);
+        document.write(pokemonList[i].name + pokemonList[i].height); 
     }
 }
+
