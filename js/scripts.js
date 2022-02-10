@@ -32,13 +32,24 @@ let pokemonList = [{
 console.log(pokemonList);
 
 // Loop with a conditional that checks whether height is above a certain value
-for (let i = 0; i < pokemonList.length; i++){
-    if (pokemonList[i].height >1.6){
-      console.log(pokemonList[i].name + pokemonList[i].height + " Wow, that's big!");
-      document.write("<p>" + pokemonList[i].name + pokemonList[i].height + " Wow, that's big!" + "</p>");
-    }else {
-        console.log(pokemonList[i].name + pokemonList[i].height);
-        document.write("<p>" + pokemonList[i].name + pokemonList[i].height + "</p>"); 
+for (let i = 0; i < pokemonList.length; i++) {
+    if (pokemonList[i].height > 1.6) {
+      console.log(
+          pokemonList[i].name + " " + pokemonList[i].height + " Wow, that's big!"
+        );
+      document.write(
+            "<p>" + 
+            pokemonList[i].name + 
+            " " +
+            pokemonList[i].height + 
+            " Wow, that's big!" + 
+            "</p>"
+        );
+    } else {
+        console.log(pokemonList[i].name + " " + pokemonList[i].height);
+        document.write(
+            "<p>" + pokemonList[i].name + " " + pokemonList[i].height + "</p>"
+        );
     }
 }
 
