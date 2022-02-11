@@ -31,7 +31,7 @@ let pokemonList = [{
 
 console.log(pokemonList);
 
-// Replacing forLoop with a forEach() loop
+// Replacing for() loop with a forEach() loop
 function myLoopFunction(pokemon) {
     console.log(pokemon.name + " " + pokemon.height + " " + pokemon.weight + " "+ pokemon.type);
     document.write(
