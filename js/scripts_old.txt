@@ -24,3 +24,32 @@ function myLoopFunction(pokemon) {
     console.log(pokemon.name + " " + pokemon.height + " " + pokemon.weight + " "+ pokemon.type);
 }
 pokemonList.forEach(myLoopFunction);
+
+pokemonList.forEach(myLoopFunction);
+
+// Different way of displaying all properties of my Pokemon - I don't like it
+Object.keys(pokemonList).forEach(function(property) {
+    console.log(pokemonList[property]);
+});
+
+// Different way of displaying all properties of my Pokemon - I don't like it
+Object.keys(pokemonList).forEach(function(property) {
+    console.log(pokemonList[property]);
+});
+
+// Replacing for() loop with a forEach() loop
+function myLoopFunction(pokemon) {
+    console.log(pokemon.name + " " + pokemon.height + " " + pokemon.weight + " "+ pokemon.type);
+    document.write(
+        "<p>" + 
+        pokemon.name + 
+        " " +
+        pokemon.height + 
+        " " +
+        pokemon.weight +
+        " " +
+        pokemon.type + 
+        "</p>"
+    )
+}
+pokemonList.forEach(myLoopFunction);
