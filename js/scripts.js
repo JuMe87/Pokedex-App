@@ -55,9 +55,19 @@ pokemonRepository.add({ name: 'Pikachu' });
 // Replacing for() loop with a forEach() function
 function myLoopFunction(pokemon) {
     console.log(pokemon.name + " " + pokemon.height + " " + pokemon.weight + " "+ pokemon.type);
+    document.write(
+        "<p>" + 
+        pokemon.name + 
+        " " +
+        pokemon.height + 
+        " " +
+        pokemon.weight +
+        " " +
+        pokemon.type + 
+        "</p>"
+    )
 }
-pokemonRepository.getAll(myLoopFunction);
-
+pokemonList.forEach(myLoopFunction);
 
     
 
