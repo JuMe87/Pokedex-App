@@ -49,7 +49,9 @@ let pokemonRepository = (function () {
 
 //IIFE End
 
+//Logs entire pokemon list
 console.log(pokemonRepository.getAll());
+// Adds Pikachu to that list, could be any other pokemon depending on the name
 pokemonRepository.add({ name: 'Pikachu' });
 
 // Replacing for() loop with a forEach() function
