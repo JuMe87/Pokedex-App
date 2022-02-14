@@ -67,7 +67,7 @@ function myLoopFunction(pokemon) {
         "</p>"
     )
 }
-pokemonList.forEach(myLoopFunction);
+pokemonRepository.getAll().forEach(myLoopFunction);
 
     
 
