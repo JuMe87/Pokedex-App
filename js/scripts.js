@@ -1,6 +1,6 @@
 // List of Pokemon wrapped in an IIFE
 let pokemonRepository = (function () {
-    
+    // Creating an array to hold pokemon objects
     let pokemonList = [
         {
             name: 'Pikachu',
@@ -31,10 +31,11 @@ let pokemonRepository = (function () {
         } 
     ]
 
+    // function to return all pokemon from list
     function getAll () {
         return pokemonList;
     }
-    
+    // function to add a pokemon to the pokemonList    
     function add (pokemon) {
         pokemonList.push(pokemon);
     }
@@ -46,25 +47,17 @@ let pokemonRepository = (function () {
 
 })()
 
+//IIFE End
+
 console.log(pokemonRepository.getAll());
 pokemonRepository.add({ name: 'Pikachu' });
- 
-// Replacing for() loop with a forEach() loop
+
+// Replacing for() loop with a forEach() function
 function myLoopFunction(pokemon) {
     console.log(pokemon.name + " " + pokemon.height + " " + pokemon.weight + " "+ pokemon.type);
-    document.write(
-        "<p>" + 
-        pokemon.name + 
-        " " +
-        pokemon.height + 
-        " " +
-        pokemon.weight +
-        " " +
-        pokemon.type + 
-        "</p>"
-    )
-}
+  }
 pokemonList.forEach(myLoopFunction);
 
 
+    
 
