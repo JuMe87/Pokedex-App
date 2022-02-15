@@ -1,75 +1,74 @@
 // List of Pokemon wrapped in an IIFE
 let pokemonRepository = (function () {
     // Creating an array to hold pokemon objects
-    let pokemonList = [
+    let repository = [
         {
-            name: 'Pikachu',
-            height: 0.4,
-            weight: 6.0,
-            type: ['electric']
-        },
-  
-        {
-            name: 'Charizard',
+            name: "Charizard",
             height: 1.7,
-            weight: 90.5,
-            type: ['fire', 'flying']
+            types: ["fire", "flying"]
         },
   
         {
-            name: 'Squirtle',
+            name: "Squirtle",
             height: 0.5,
-            weight: 9.0,
-            type: ['water']
+            types: ["water"]
         }, 
 
         {
-            name: 'Jigglypuff',
+            name: "Jigglypuff",
             height: 0.5,
-            weight: 5.5,
-            type: ['fairy', 'normal']
+            types: ["fairy", "normal"]
         } 
     ]
 
     // function to return all pokemon from list
     function getAll () {
-        return pokemonList;
+        return repository;
     }
     // function to add a pokemon to the pokemonList    
-    function add (pokemon) {
-        pokemonList.push(pokemon);
+    function add(pokemon) {
+        if (
+          typeof pokemon === "object" &&
+          "name" in pokemon &&
+          "height" in pokemon &&
+          "types" in pokemon
+        ) {
+            repository.push(pokemon);
+        } else {
+          console.log("pokemon is not correct");
+        }
     }
-    
+    // function to list Pokemon in a list and in a button
+    function addListItem(pokemon){
+        let pokemonList = document.querySelector(".pokemon-list");
+        let listpokemon = document.createElement("li");
+        let button = document.createElement("button");
+        button.innerText = pokemon.name;
+        button.classList.add("button-class");
+        listpokemon.appendChild(button);
+        pokemonList.appendChild(listpokemon);
+    }
+
     return {
         getAll: getAll,
-        add: add
+        add: add,
+        addListItem: addListItem
     }
 
 })()
 
 //IIFE End
 
+// Adds Pikachu to that list, could be any other pokemon depending on the name
+pokemonRepository.add({ name: "Pikachu", height: 0.3, types: ["electric"] });
+
 //Logs entire pokemon list
 console.log(pokemonRepository.getAll());
-// Adds Pikachu to that list, could be any other pokemon depending on the name
-pokemonRepository.add({ name: 'Pikachu' });
 
-// Replacing for() loop with a forEach() function
-function myLoopFunction(pokemon) {
-    console.log(pokemon.name + " " + pokemon.height + " " + pokemon.weight + " "+ pokemon.type);
-    document.write(
-        "<p>" + 
-        pokemon.name + 
-        " " +
-        pokemon.height + 
-        " " +
-        pokemon.weight +
-        " " +
-        pokemon.type + 
-        "</p>"
-    )
-}
-pokemonRepository.getAll().forEach(myLoopFunction);
+//forEach() function
+pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
+});
 
     
 
