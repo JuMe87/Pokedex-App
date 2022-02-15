@@ -53,3 +53,25 @@ function myLoopFunction(pokemon) {
     )
 }
 pokemonList.forEach(myLoopFunction);
+
+console.log(pokemonRepository.getAll());
+
+// Replacing for() loop with a forEach() loop
+function myLoopFunction(pokemon) {
+    console.log(pokemon.name + " " + pokemon.height + " " + pokemon.weight + " "+ pokemon.type);
+    document.write(
+        "<p>" + 
+        pokemon.name + 
+        " " +
+        pokemon.height + 
+        " " +
+        pokemon.weight +
+        " " +
+        pokemon.type + 
+        "</p>"
+    )
+}
+pokemonList.forEach(myLoopFunction);
+
+
+
