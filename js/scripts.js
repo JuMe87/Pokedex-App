@@ -25,21 +25,25 @@ let pokemonRepository = (function () {
     function getAll () {
         return pokemonList;
     }
+
     // function to add a pokemon to the pokemonList    
     function add (pokemon) {
+        // checks that only certain properties will be accepted when adding a new pokemon
         if (
           typeof pokemon === "object" &&
           "name" in pokemon &&
           "height" in pokemon &&
           "types" in pokemon
         ) {
+            //if property has been validated, new pokemon will be added
             pokemonList.push(pokemon);
         } else {
+            // otherwise display error message
           console.log("pokemon is not correct");
         }
     }
 
-    // function to list Pokemon in a list and in a button
+    // function to list Pokemon in a list and in an invidiual button in HTML
     function addListItem (pokemon) {
         let pokemonList = document.querySelector(".pokemon-list");
         let listpokemon = document.createElement("li");
