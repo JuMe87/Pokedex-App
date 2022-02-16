@@ -48,8 +48,9 @@ let pokemonRepository = (function () {
         let pokemonList = document.querySelector(".pokemon-list");
         let listpokemon = document.createElement("li");
         let button = document.createElement("button");
-        button.addEventListener('click', function showDetails (pokemon) {
-            console.log(pokemon);
+        button.addEventListener('click', function showDetails (event) { 
+            console.log("I am the pokemon",pokemon);
+            console.log("I'm the event", event)
         });
         button.innerText = pokemon.name;
         button.classList.add("button-class");
@@ -57,10 +58,8 @@ let pokemonRepository = (function () {
         pokemonList.appendChild(listpokemon);
     }
 
-    function showDetails (pokemon) {
-        PokemonRepository.loadDetails(pokemon).then(function () {
-          console.log(pokemon);
-        });
+    function showDetails(pokemon) {
+        console.log('showDetails function says hello', pokemon);
     }
 
     return {
