@@ -75,3 +75,27 @@ pokemonList.forEach(myLoopFunction);
 
 
 
+{
+            name: "Charizard",
+            height: 1.7,
+            types: ["fire", "flying"]
+        },
+  
+        {
+            name: "Squirtle",
+            height: 0.5,
+            types: ["water"]
+        }, 
+
+        {
+            name: "Jigglypuff",
+            height: 0.5,
+            types: ["fairy", "normal"]
+        } 
+
+
+// Adds Pikachu to that list, could be any other pokemon depending on the name
+pokemonRepository.add({ name: "Pikachu", height: 0.3, types: ["electric"] });
+
+//Logs entire pokemon list
+console.log(pokemonRepository.getAll());
