@@ -69,7 +69,7 @@ let pokemonRepository = (function () {
           console.error(e);
         });
     }
-    // function that acutally shows pokemon details in console
+    // function that actually shows pokemon details in console
     function showDetails(item) {
         pokemonRepository.loadDetails(item).then(function () {
           console.log(item);
