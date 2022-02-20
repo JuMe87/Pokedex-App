@@ -99,3 +99,11 @@ pokemonRepository.add({ name: "Pikachu", height: 0.3, types: ["electric"] });
 
 //Logs entire pokemon list
 console.log(pokemonRepository.getAll());
+
+
+    // function that actually shows pokemon details in console
+    function showDetails(item) {
+        pokemonRepository.loadDetails(item).then(function () {
+          console.log(item);
+        });
+    }
