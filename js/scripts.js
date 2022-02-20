@@ -1,46 +1,28 @@
 // List of Pokemon wrapped in an IIFE
 let pokemonRepository = (function () {
     // Creating an array to hold pokemon objects
-    let pokemonList = [
-        {
-            name: "Charizard",
-            height: 1.7,
-            types: ["fire", "flying"]
-        },
-  
-        {
-            name: "Squirtle",
-            height: 0.5,
-            types: ["water"]
-        }, 
+    let pokemonList = []; //empty array 
+    // We deleted array of pokemons in order to derive all pokemon via this api
+    let apiUrl = "https://pokeapi.co/api/v2/pokemon/"
 
-        {
-            name: "Jigglypuff",
-            height: 0.5,
-            types: ["fairy", "normal"]
-        } 
-    ]
-
-    // function to return all pokemon from list
-    function getAll () {
-        return pokemonList;
-    }
-
-    // function to add a pokemon to the pokemonList    
+    // function to push a pokemon to the pokemonList    
     function add (pokemon) {
         // checks that only certain properties will be accepted when adding a new pokemon
         if (
           typeof pokemon === "object" &&
-          "name" in pokemon &&
-          "height" in pokemon &&
-          "types" in pokemon
+          "name" in pokemon
         ) {
-            //if property has been validated, new pokemon will be added
+        //if property has been validated, new pokemon will be added
             pokemonList.push(pokemon);
         } else {
-            // otherwise display error message
+        // otherwise display error message
           console.log("pokemon is not correct");
         }
+    }
+
+    // function to return all pokemon from array and display them
+    function getAll () {
+        return pokemonList;
     }
 
     // function to list Pokemon in a list and in an invidiual button in HTML
@@ -48,41 +30,70 @@ let pokemonRepository = (function () {
         let pokemonList = document.querySelector(".pokemon-list");
         let listpokemon = document.createElement("li");
         let button = document.createElement("button");
-        button.addEventListener('click', function showDetails (event) { 
-            console.log("I am the pokemon",pokemon);
-            console.log("I'm the event", event)
-        });
         button.innerText = pokemon.name;
         button.classList.add("button-class");
         listpokemon.appendChild(button);
         pokemonList.appendChild(listpokemon);
+        button.addEventListener('click', function (event) { // event listener that listens to a mouse click over a button
+          showDetails (pokemon); //logs showDetails function
+        });    
     }
-
-    function showDetails(pokemon) {
-        console.log('showDetails function says hello', pokemon);
+    // Promise function which is basically a fetch function getting the pokemon from the api
+    function loadList() {
+        return fetch(apiUrl).then(function (response) {
+          return response.json();
+        }).then(function (json) {   // we take the json generated above and let it run a forEach loop
+          json.results.forEach(function (item) {   // json is the entire data that is available on api-website
+            let pokemon = {  //maps pokemon item with 2 parameters
+              name: item.name,
+              detailsUrl: item.url
+            };
+            add(pokemon);
+            console.log(pokemon); // logs all pokemon on console (take this out and it will only log pokemon one clicks on)
+          });
+        }).catch(function (e) {
+          console.error(e);
+        });
     }
-
+    // funtion to load details for each pokemon 
+    function loadDetails(item) {
+        let url = item.detailsUrl; // item.detailsURL is taken from function above
+        return fetch(url).then(function (response) {
+          return response.json();
+        }).then(function (details) {
+          // Now we add the details to the item
+          item.imageUrl = details.sprites.front_default;  // sprites is coming from actual api
+          item.height = details.height;
+          item.types = details.types;
+        }).catch(function (e) {
+          console.error(e);
+        });
+    }
+    // function that acutally shows pokemon details in console
+    function showDetails(item) {
+        pokemonRepository.loadDetails(item).then(function () {
+          console.log(item);
+        });
+    }
+    // Return needs to be added in order to show functions output
     return {
-        getAll: getAll,
         add: add,
+        getAll: getAll,
         addListItem: addListItem,
+        loadList: loadList,
+        loadDetails: loadDetails,
         showDetails: showDetails
-    }
+    };
 
-})()
+})();
 
 //IIFE End
 
-// Adds Pikachu to that list, could be any other pokemon depending on the name
-pokemonRepository.add({ name: "Pikachu", height: 0.3, types: ["electric"] });
-
-//Logs entire pokemon list
-console.log(pokemonRepository.getAll());
-
-//forEach() function
-pokemonRepository.getAll().forEach(function (pokemon) {
-    pokemonRepository.addListItem(pokemon);
+//forEach() function that goes through list and displays all pokemons and their names on DOM
+pokemonRepository.loadList().then(function() {
+    // Now the data is loaded!
+    pokemonRepository.getAll().forEach(function(pokemon){
+      pokemonRepository.addListItem(pokemon);
+    });
 });
-
-
 
