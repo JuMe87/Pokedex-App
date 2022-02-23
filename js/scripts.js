@@ -1,11 +1,12 @@
 // List of Pokemon wrapped in an IIFE
 let pokemonRepository = (function () {
-    // Variable needed in order to show modal and its content
-    let modalContainer = document.querySelector('#modal-container');  
+    
     // Creating an array to hold pokemon objects
     let pokemonList = []; //empty array 
     // We deleted array of pokemons in order to derive all pokemon via this api
     let apiUrl = "https://pokeapi.co/api/v2/pokemon/"
+    // Variable needed in order to show modal and its content
+    let modalContainer = document.querySelector('#modal-container');  
 
     // function to push a pokemon to the pokemonList    
     function add (pokemon) {
@@ -67,14 +68,16 @@ let pokemonRepository = (function () {
           item.imageUrl = details.sprites.front_default;  // sprites is coming from actual api
           item.height = details.height;
           item.types = details.types;
+          return item
         }).catch(function (e) {
           console.error(e);
         });
     }
     // function that actually shows pokemon details in console
     function showDetails(item) {
-        pokemonRepository.loadDetails(item).then(function () {
-          showModal(item);
+        loadDetails(item).then(function (returnValue) {
+          console.log(returnValue)
+          showModal(returnValue);
         });
     }
     
@@ -110,7 +113,7 @@ let pokemonRepository = (function () {
     }
     
     document.querySelector('#show-modal').addEventListener('click', () => {
-      showModal('Modal title', 'This is the modal content!');
+      showModal('returnValue', 'This is the modal content!');
     });
     
     window.addEventListener('keydown', (e) => {
