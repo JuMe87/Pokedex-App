@@ -4,11 +4,11 @@ let pokemonRepository = (function () {
     // Creating an array to hold pokemon objects
     let pokemonList = []; //empty array 
     // We deleted array of pokemons in order to derive all pokemon via this api
-    let apiUrl = "https://pokeapi.co/api/v2/pokemon/"
+    let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150"
     // Variable needed in order to show modal and its content
-    let modalContainer = document.querySelector('#modal-container');  
+    //let modalContainer = document.querySelector('#modal-container');  
 
-    // function to push a pokemon to the pokemonList    
+    // function to add a pokemon to the pokemonList    
     function add (pokemon) {
         // checks that only certain properties will be accepted when adding a new pokemon
         if (
@@ -28,37 +28,24 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
-    // function to list Pokemon in a list and in an invidiual button in HTML
-    function addListItem (pokemon) {
-        let pokemonList = document.querySelector(".pokemon-list");
-        let listpokemon = document.createElement("li");
-        let button = document.createElement("button");
-        button.innerText = pokemon.name;
-        button.classList.add("button-class");
-        listpokemon.appendChild(button);
-        pokemonList.appendChild(listpokemon);
-        button.addEventListener('click', function (event) { // event listener that listens to a mouse click over a button
-          showDetails (pokemon); //logs showDetails function
-        });    
-    }
     // Promise function which is basically a fetch function getting the pokemon from the api
     function loadList() {
-        return fetch(apiUrl).then(function (response) {
-          return response.json();
-        }).then(function (json) {   // we take the json generated above and let it run a forEach loop
-          json.results.forEach(function (item) {   // json is the entire data that is available on api-website
-            let pokemon = {  //maps pokemon item with 2 parameters
-              name: item.name,
-              detailsUrl: item.url
-            };
-            add(pokemon);
-            console.log(pokemon); // logs all pokemon on console (take this out and it will only log pokemon one clicks on)
-          });
-        }).catch(function (e) {
-          console.error(e);
+      return fetch(apiUrl).then(function (response) {
+        return response.json();
+      }).then(function (json) {   // we take the json generated above and let it run a forEach loop
+        json.results.forEach(function (item) {   // json is the entire data that is available on api-website
+          let pokemon = {  //maps pokemon item with 2 parameters
+            name: item.name,
+            detailsUrl: item.url
+          };
+          add(pokemon);
         });
+      }).catch(function (e) {
+        console.error(e);
+      });
     }
-    // funtion to load details for each pokemon 
+    
+    // funtion to load further details for each pokemon (item), e.g. image,height, types
     function loadDetails(item) {
         let url = item.detailsUrl; // item.detailsURL is taken from function above
         return fetch(url).then(function (response) {
@@ -67,69 +54,83 @@ let pokemonRepository = (function () {
           // Now we add the details to the item
           item.imageUrl = details.sprites.front_default;  // sprites is coming from actual api
           item.height = details.height;
-          item.types = details.types;
-          return item
+          item.weight = details.weight;
+          item.types = [];
+          details.types.forEach(function (element){
+            item.types.push(element.type.name);
+          })
         }).catch(function (e) {
           console.error(e);
         });
     }
-    // function that actually shows pokemon details in console
-    function showDetails(item) {
-        loadDetails(item).then(function (returnValue) {
-          console.log(returnValue)
-          showModal(returnValue);
-        });
+    
+    // function to list Pokemon in a list and in an invidiual button in HTML
+    function addListItem(pokemon) {
+      let listGroupElement = document.querySelector('.pokemon-list');
+      let listItemButton = document.createElement('button');
+      listItemButton.innerText = pokemon.name;
+      listItemButton.classList.add('list-group-item', 'list-group-item-action',
+        'text-center', 'text-normal');
+  
+      // Adding the data toggle and data target to trigger the modal
+      listItemButton.setAttribute('data-toggle', 'modal');
+      listItemButton.setAttribute('data-target', '#pokemonModal');
+  
+      // Appending the button to the parent div element
+      listGroupElement.appendChild(listItemButton);
+
+      // Adding an event listener to newly created button
+      buttonEventListener(listItemButton,pokemon);
     }
     
-    function showModal(title, text) {
+    // function to add an event listener to a button that will show details of the pokemon when the button is clicked
+    function buttonEventListener(button,pokemon){
+      button.addEventListener('click', function(){
+        showDetails(pokemon);
+      });
+    }
+    
+    // function that loads details from api & then prints pokemon details onto console
+    function showDetails(pokemon){
+      loadDetails(pokemon).then(function () {
+        showModal(pokemon);
+        console.log(pokemon);
+      });
+    }
+    
+    // function to show modal
+    function showModal(pokemon) {   // make sure item is correct in my case, could be pokemon as well
+      let modalBody = $(".modal-body");
+      let modalTitle = $(".modal-title");
+      
       // Clear all existing modal content
-      modalContainer.innerHTML = '';
+      modalTitle.empty();
+      modalBody.empty();
       
-      let modal = document.createElement('div');
-      modal.classList.add('modal');
+       // Adding pokemon name as title
+      let titleElement = $('<h1 class="text-uppercase">' + pokemon.name + '</h1>');
+      modalTitle.append(titleElement);
       
-      // Add the new modal content
-      let closeButtonElement = document.createElement('button');
-      closeButtonElement.classList.add('modal-close');
-      closeButtonElement.innerText = 'Close';
-      closeButtonElement.addEventListener('click', hideModal);
+      //Creating elements for the modal body
+      //1.image
+      let imageElement = document.createElement('img');
+      imageElement.classList.add('modal-img');
+      imageElement.src = pokemon.imageUrl;
       
-      let titleElement = document.createElement('h1');
-      titleElement.innerText = title;
+      //2.height
+      let heightElement = $("<p>" + "height: " + pokemon.height + "</p>");
       
-      let contentElement = document.createElement('p');
-      contentElement.innerText = text;
+      //3.weight
+      let weightElement = $("<p>" + "weight: " + pokemon.weight + "</p>");
       
-      modal.appendChild(closeButtonElement);
-      modal.appendChild(titleElement);
-      modal.appendChild(contentElement);
-      modalContainer.appendChild(modal);
+      //4.types 
+      let typesElement = $("<p>" + "types: " + pokemon.types.join(', ') + "</p>");
       
-      modalContainer.classList.add('is-visible');
+      modalBody.append(imageElement);
+      modalBody.append(heightElement);
+      modalBody.append(weightElement);
+      modalBody.append(typesElement);
     }
-    
-    function hideModal() {
-      modalContainer.classList.remove('is-visible');
-    }
-    
-    document.querySelector('#show-modal').addEventListener('click', () => {
-      showModal('returnValue', 'This is the modal content!');
-    });
-    
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-        hideModal();  
-      }
-    });
-    
-    modalContainer.addEventListener('click', (e) => {
-      // Since this is also triggered when clicking INSIDE the modal container,
-      // We only want to close if the user clicks directly on the overlay
-      let target = e.target;
-      if (target === modalContainer) {
-        hideModal();
-      }
-    }); 
 
     // Return needs to be added in order to show functions output
     return {
