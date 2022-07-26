@@ -41,6 +41,18 @@ Your users should be able to view a list of data and see more details for a give
 - The app should be deployed to a publicly accessible platform like GitHub Pages (you can  review how to do this in Intro to Frontend Development's Exercise 10: Code Quality, Testing, &  Web Hosting ).
 - The app must work in Chrome, Firefox, Safari, Edge, and Internet Explorer 11.
 
+## setup
+
+### Publishing on gh-pages using GitHub Desktop
+
+1. Make sure all your changes are committed and pushed to the main branch.
+2. Create a new branch named “gh-pages”. To do so, use the button “Current Branch” from the navigation bar located below the menu bar.
+3. Click on “New branch” from the dropdown menu. This will bring up the “Create a branch” form.
+4. Type “gh-pages” into the “Name” field. It needs to be this name exactly; otherwise, it won’t work. This is because gh-pages is a special branch reserved for publishing your website on GitHub. Finally, click the Create branch button.
+5. Your second branch should start exactly where the main branch was. You can now publish this branch to GitHub by clicking “Publish branch”.
+6. That’s it! You can now access the website under “https://jume87.github.io/Pokedex-App/”
+7. Whenever you push new changes to the gh-pages branch, your website will be automatically updated, too. The website may take a few minutes before it goes live, so give it a moment or two if you’re still getting an error message when trying to visit the published website.
+
 ## Screenshots
 
 ![Screenshot of List of Pokémon](./assets/Screenshot_Overview%20Pokemon.png?raw=true "Overview")
